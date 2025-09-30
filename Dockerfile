@@ -4,7 +4,7 @@ FROM node:20-slim
 # Set working directory
 WORKDIR /app
 
-# Install n8n version 1.88.0
+# Install latest n8n version
 RUN npm install -g n8n
 
 # Expose the port n8n will run on

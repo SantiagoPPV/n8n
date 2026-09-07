@@ -891,7 +891,7 @@
 /* ===================== Constantes ===================== */
 /* Sello de versión: sirve para saber, desde cualquier computadora, si el
    navegador está mostrando la versión publicada o una vieja guardada en caché. */
-const APP_VERSION="v14 · 24 ago 2026 · conexión GDL → MTY en esenciales";
+const APP_VERSION="v15 · 24 ago 2026 · Xi'an en dos hoteles, todo a pie";
 /* ===================== RUTA DEL VIAJE · EDITA AQUÍ =====================
    Este bloque es el único lugar donde vive la ruta. Para cambiarla:
      1. Mueve, quita o agrega renglones en ROUTE: el orden de la lista es el
@@ -1292,7 +1292,9 @@ xian:{catalog:[
   A("xa-lishan","Lishan Yuan: carros de bronce + túmulo","sight",90,"Lo que se pierde el 80% de los visitantes"),
   A("xa-lintong-comida","Comida en Lintong","food",45),
   A("xa-terra-vuelta","Regreso a la ciudad","transfer",95,"El regreso es el trayecto malo del día"),
-  A("xa-datang-ir","Metro / DiDi al sur de Datang Everbright City","transfer",35,"Bajar en 大唐芙蓉园 (L4) para caminar el bulevar de sur a norte"),
+  A("xa-maletas","Sofitel → Canopy: dejar las maletas","transfer",45,"Desvío de ~9 km antes de salir a Terracota; cuesta 50 min de la mañana"),
+  A("xa-checkin2","Check-in en el Canopy y descanso","rest",85,"Las maletas ya subieron; la noche Tang termina pasadas las 21:30"),
+  A("xa-datang-ir","Metro / DiDi al sur de Datang Everbright City","transfer",35,"Ya no hace falta durmiendo en Qujiang; se queda en el catálogo"),
   A("xa-cena-tang","Cena en 长安大牌档 Chang'an Da Pai Dang","food",90,"Sucursal del B1 de Datang Everbright City; menú en inglés con fotos"),
   A("xa-datang","Datang Everbright City de sur a norte","sight",60,"Gratis; el efecto real empieza 19:45 y el apogeo es 20:00–22:30"),
   A("xa-fuentes","Fuentes de la Plaza Norte del Ganso Salvaje","sight",20,"El martes solo hay funciones de 19:00 y 21:00; la buena es la de 21:00"),
@@ -1313,16 +1315,27 @@ xian:{catalog:[
   /* Día 2 · mar 18 may. Terracota completo por la mañana (incluido el Lishan
      Yuan, que casi nadie ve) y la noche Tang en Datang Everbright City, que es
      gratis y mejor que cualquiera de los shows de pago de la ciudad. */
-  [R("g-breakfast","06:30"),R("xa-terra-ir","07:00"),R("xa-terracota","08:30"),R("xa-shuttle"),
-   R("xa-lishan"),R("xa-lintong-comida"),R("xa-terra-vuelta","14:45"),R("g-rest"),
-   R("xa-datang-ir","17:45"),R("xa-cena-tang","18:30"),R("xa-datang","20:00"),
+  [R("g-breakfast","06:00"),R("xa-maletas","06:40"),R("xa-terra-ir","07:25"),R("xa-terracota","09:00"),
+   R("xa-shuttle"),R("xa-lishan"),R("xa-lintong-comida"),R("xa-terra-vuelta","15:15"),
+   R("xa-checkin2"),R("xa-cena-tang","18:30"),R("xa-datang","20:00"),
    R("xa-fuentes","21:00"),R("xa-datang-vuelta")]
   /* Día 3 · mié 19 may: desayuno de calle, Torre del Tambor y tren a Pekín.
      Va en la primera jornada de Pekín, que es donde se duerme esa noche. */
 ],hotels:[
-  {name:"Sofitel Legend People's Grand",area:"Renmin Square",note:"Histórico, elegante"},
-  {name:"The Ritz-Carlton Xi'an",area:"Centro",note:"Lujo moderno"},
-  {name:"W Xi'an",area:"Qujiang",note:"Diseño llamativo"}
+  /* Estancia partida: noche 1 dentro de la muralla, noche 2 en Qujiang.
+     La lista completa con notas vive en XA_HOTELES_2027. */
+  {name:"Sofitel Legend People's Grand Hotel Xi'an",area:"319 Dongxin St · dentro de la muralla",
+   precio:4900,noches:1,chosen:true,note:"Noche 1 · lun 17. Art Déco de 1953, mayordomo 24 h, dentro de la muralla"},
+  {name:"Canopy by Hilton Xi'an Qujiang",area:"15 Yannan Yi Rd · Qujiang",
+   precio:3150,noches:1,chosen:true,note:"Noche 2 · mar 18. A pie de Datang Everbright City y de la Gran Pagoda"},
+  {name:"Younch Hotel Xi'an (西安央辰酒店)",area:"Al pie de la muralla · Small Luxury Hotels",
+   note:"16 llaves con patios; el único con lujo, experiencia china y buena ubicación a la vez"},
+  {name:"HUALUXE Xi'an Tanghua",area:"Qujiang · junto a la Gran Pagoda",precio:2500,
+   note:"Marca china de IHG; patrimonio arquitectónico del s. XX. Sustituto de la noche 2"},
+  {name:"Sofitel Xi'an on Renmin Square",area:"Renmin Square · dentro de la muralla",precio:1500,
+   note:"Mismo complejo que el Legend por una tercera parte. Sustituto de la noche 1"},
+  {name:"The Ritz-Carlton Xi'an",area:"Distrito tecnológico Gaoxin",
+   note:"Descartado: a 7.8 km de la Torre de la Campana, sin nada del itinerario cerca"}
 ],food:[
   {name:"Yangrou paomo (Lao Sun Jia)",kind:"rest",note:"Sopa de cordero con pan"},
   {name:"Roujiamo + biangbiang noodles",kind:"rest",note:"En el Barrio Musulmán"},
@@ -1331,10 +1344,11 @@ xian:{catalog:[
 
 beijing:{catalog:[
   A("bj-arrive","Tren bala Xi'an → Pekín","transfer",255,"Xi'an Norte → Pekín Oeste; el G más rápido hace 4 h 10"),
-  A("bjd0-desayuno","Desayuno de calle en Sajinqiao (Xi'an)","food",60,"胡辣汤 y 甑糕: solo se venden por la mañana"),
-  A("bjd0-torre","Torre del Tambor a la apertura (Xi'an)","sight",60,"Desde la terraza se ve la Torre de la Campana; abre 8:30"),
-  A("bjd0-maletas","Regreso al hotel por las maletas","transfer",45),
-  A("bjd0-estacion","Hotel → estación Xi'an Norte","transfer",75,"Salir 2 h antes del tren; extranjeros pasan por el 人工通道 con pasaporte"),
+  A("bjd0-desayuno","Desayuno en el Canopy","food",45),
+  A("bjd0-pagoda","Gran Pagoda del Ganso Salvaje + templo Daci'en","sight",80,"A 10-15 min a pie del hotel; a las 8:30 está vacía"),
+  A("bjd0-torre","Torre del Tambor a la apertura (Xi'an)","sight",60,"Se cae al dormir en Qujiang; queda en el catálogo"),
+  A("bjd0-maletas","Regreso al hotel por las maletas","transfer",25),
+  A("bjd0-estacion","Canopy → estación Xi'an Norte","transfer",75,"En taxi, no en metro: 45-60 min y la Línea 2 con maletas grandes es miserable"),
   A("bjd0-taxi","Estación Pekín Oeste → hotel + check-in","transfer",75),
   A("bj-temple","Templo del Cielo","sight",120,"Parque y arquitectura imperial"),
   A("bj-duck","Pato laqueado de Pekín","food",105,"Dadong / Siji Minfu / Quanjude"),
@@ -1348,7 +1362,7 @@ beijing:{catalog:[
 ],days:[
   /* Día 1 · mié 19 may: la mañana todavía es en Xi'an y el tren se lleva la
      tarde, así que el Templo del Cielo se movió a otro día. */
-  [R("bjd0-desayuno","07:00"),R("bjd0-torre","08:30"),R("bjd0-maletas"),R("bjd0-estacion","10:30"),
+  [R("bjd0-desayuno","07:30"),R("bjd0-pagoda","08:30"),R("bjd0-maletas"),R("bjd0-estacion","10:15"),
    R("bj-arrive"),R("bjd0-taxi"),R("bj-duck","19:00"),R("bj-qianmen")],
   [R("bj-wall","07:30"),R("g-rest"),R("g-dinner"),R("bj-acro","19:45")],
   [R("bj-forbidden","08:30"),R("g-lunch"),R("bj-jingshan"),R("bj-hutong"),R("g-rest"),R("g-dinner"),R("bj-houhai")]
@@ -1500,6 +1514,7 @@ const DEFAULT_COSTS={
   // Xi'an · día 2 (Terracota y noche Tang)
   "xa-terracota":[["Entradas Terracota (2)",588],["Chofer privado día completo",2600],["Audioguías (2)",147]],
   "xa-lintong-comida":[["Comida en Lintong (2)",450]],
+  "xa-maletas":[["Taxi con maletas (2)",90]],
   "xa-datang-ir":[["Metro / DiDi (2)",75]],
   "xa-cena-tang":[["Cena Chang'an Da Pai Dang (2)",550]],
   "xa-datang-vuelta":[["Metro (2)",15]],
@@ -1511,9 +1526,9 @@ const DEFAULT_COSTS={
   "xa-changhenge":[["Show 长恨歌, zona Centro A (2)",1901]],
   "xa-tang":[["Show Tang + cena dumplings (2)",1800]],
   // Pekín · mañana del miércoles, todavía en Xi'an
-  "bjd0-desayuno":[["Desayuno de calle (2)",100]],
   "bjd0-torre":[["Torre del Tambor (2)",150]],
-  "bjd0-estacion":[["DiDi hotel → Xi'an Norte (2)",150]],
+  "bjd0-pagoda":[["Templo Da Ci'en + ascenso (2)",319]],
+  "bjd0-estacion":[["Taxi hotel → Xi'an Norte (2)",180]],
   "bjd0-taxi":[["Taxi estación → hotel (2)",200]],
   // Pekín
   "bj-temple":[["Templo del Cielo (2)",200]],
@@ -1575,7 +1590,8 @@ function seedBase(b){
     nights:n||b.nights||2,included:n!=null,
     catalog,schedule,dayStart,
     budget:{lodgingEst:0,lodgingReal:0,miscEst:0,miscReal:0},
-    hotels:(plan.hotels||[]).map(h=>({id:uid(),name:h.name,area:h.area||"",note:h.note||"",precio:+h.precio||0,chosen:false})),
+    hotels:(plan.hotels||[]).map(h=>({id:uid(),name:h.name,area:h.area||"",note:h.note||"",
+      precio:+h.precio||0,noches:+h.noches||0,chosen:!!h.chosen})),
     food:(plan.food||[]).map(f=>({id:uid(),name:f.name,kind:f.kind||"rest",note:f.note||"",chosen:false})),
     expanded:false,tab:"plan",day:0};
 }
@@ -2002,6 +2018,167 @@ const YANGSHUO_V2={
     {start:"08:20",items:[["ys-liraft","08:20"],["g-lunch",null],["ys-bike",null],["g-dinner",null]]}
   ]
 };
+/* ---- Xi'an: estancia partida entre dos hoteles, para caminar las dos noches ----
+   El itinerario tiene su centro de gravedad en dos sitios opuestos de la ciudad:
+   el lunes es dentro de la muralla (Puerta Sur y Barrio Musulmán) y el martes
+   por la noche es Qujiang (Datang Everbright City). Ningún hotel cubre los dos
+   a pie, así que se duerme una noche en cada lado:
+
+     noche 1 · lun 17 → Sofitel Legend, dentro de la muralla
+     noche 2 · mar 18 → Canopy by Hilton, en Qujiang
+
+   Al revés no funciona: llegarían del aeropuerto a Qujiang y la muralla del
+   lunes ya sería taxi.
+
+   El martes las maletas se dejan en el Canopy de camino a Terracota. Cuesta
+   50 min de la mañana (salen 20 antes y llegan 30 después), y por eso el Foso 1
+   pasa de las 8:30 a las 9:00 — que sigue por delante de los tours, que
+   aterrizan entre 9:30 y 10:00.
+   Alternativa sin ese costo: pedirle al Sofitel que mande las maletas al Canopy
+   por mensajería (¥100-200). Tiene mayordomo 24 h y lo resuelve. Si lo hacen,
+   basta regresar la salida a las 7:00 y la llegada al Foso 1 a las 8:30. */
+const XA_HOTELES_2027=[
+  {name:"Sofitel Legend People's Grand Hotel Xi'an",area:"319 Dongxin St · dentro de la muralla",
+   precio:4900,noches:1,chosen:true,
+   note:"<b>★ Noche 1 · lunes 17.</b> A ~700 m de la Torre de la Campana, dentro de la muralla Ming.<br>"+
+        "Edificio Art Déco de 1953 que fue casa de huéspedes del Estado. Jardines, alberca cubierta y spa. "+
+        "<b>Mayordomo 24 h en todas las categorías</b>, sábanas de 600 hilos, menú de almohadas y amenidades Hermès. "+
+        "Está en la guía Michelin de hoteles y es <b>#20 de 1,232 en Shaanxi</b>.<br>"+
+        "<u>Por qué esta noche:</u> Puerta Sur a 28 min a pie (o 3 paradas de metro), Barrio Musulmán a 20, "+
+        "Torre del Tambor a 13. El lunes entero se camina.<br>"+
+        "<i>Tarifa 2025-26: $188-297 USD + ~15% de servicio. Es lujo francés, no experiencia china: "+
+        "si buscabas lo segundo, el Younch de abajo da las dos cosas. Pide desayuno temprano la noche anterior: "+
+        "el martes salen a las 6:40 y el buffet abre 6:30.</i>"},
+  {name:"Canopy by Hilton Xi'an Qujiang",area:"15 Yannan Yi Rd · Qujiang",
+   precio:3150,noches:1,chosen:true,
+   note:"<b>★ Noche 2 · martes 18.</b> A 10-15 min a pie de la Gran Pagoda del Ganso y de Tang Paradise, "+
+        "prácticamente en el arranque sur de <b>Datang Everbright City</b>.<br>"+
+        "<u>Por qué esta noche:</u> la cena, el bulevar y las fuentes de las 21:00 salen por la puerta, "+
+        "y regresan caminando. Se acaba el problema del último metro L3 de las 23:00 y de que ahí no hay DiDi "+
+        "entre 21:30 y 22:30.<br>"+
+        "<b>9.2/10 en Hotels.com y 9.8 de las parejas.</b> Bicicletas gratis y terraza.<br>"+
+        "<i>$157 + $23 de impuestos. Avísales que llegan ~7:10 con maletas y check-in hasta la tarde. "+
+        "El miércoles a la estación en taxi, no en metro: son 45-60 min y la Línea 2 con maletas grandes "+
+        "en hora pico es de las peores.</i>"},
+  {name:"Younch Hotel Xi'an (西安央辰酒店)",area:"Al pie de la muralla · Small Luxury Hotels",precio:0,
+   note:"<b>La alternativa si quieren experiencia china y una sola mudanza.</b> Solo <b>16 habitaciones</b> "+
+        "en estructura de patios, al pie de la muralla. Estética wabi-sabi oriental, suites con alberca de baño "+
+        "y habitaciones con jardín propio. Miembro de <b>Small Luxury Hotels of the World</b>.<br>"+
+        "<b>#4 de hoteles premium de Xi'an</b>, sin una sola reseña negativa en 11 meses. Sopa dulce de cortesía "+
+        "cada noche y desayuno de especialidades locales.<br>"+
+        "<i>⚠ Cotiza solo en yuanes y con fechas: no hay precio de referencia. Es el único que da lujo real, "+
+        "experiencia china y buena ubicación a la vez — vale la pena pedirle cotización.</i>"},
+  {name:"HUALUXE Xi'an Tanghua",area:"Qujiang · junto a la Gran Pagoda",precio:2500,
+   note:"<b>La marca de IHG diseñada alrededor de la hospitalidad china</b>, no una cadena occidental adaptada. "+
+        "168 cuartos de estilo chino en trazo de jardín tradicional, con vistas a la Gran Pagoda y al templo Daci'en. "+
+        "El complejo lo diseñó el maestro <b>Zhang Jinqiu</b> y en 2017 entró a los Patrimonios Arquitectónicos "+
+        "Chinos del Siglo XX. <b>#6 de 1,211 en Shaanxi.</b><br>"+
+        "<i>Aquí está 彩丰楼 Cai Feng Lou, el Black Pearl un diamante. Sustituto directo del Canopy para la noche 2, "+
+        "con más carácter y ~600 MXN menos.</i>"},
+  {name:"Sofitel Xi'an on Renmin Square",area:"Renmin Square · dentro de la muralla",precio:1500,
+   note:"El hermano menor del Legend, <b>en el mismo complejo y compartiendo los jardines históricos</b>. "+
+        "#24 de 1,232 en TripAdvisor, 9.4 en Trip.com.<br>"+
+        "<i>La jugada de valor: misma zona que el Legend por una tercera parte. Sustituto directo para la noche 1.</i>"},
+  {name:"Hilton Xi'an City Wall",area:"Dentro de la muralla · zona Torre de la Campana",precio:1850,
+   note:"Dentro de la muralla, caminando a la Torre de la Campana, la del Tambor y la muralla. "+
+        "309 cuartos de <b>43 m² para arriba</b>, alberca cubierta y 3 restaurantes.<br>"+
+        "<i>Ubicación equivalente al Legend por un tercio del precio, pero sin el edificio ni el servicio.</i>"},
+  {name:"Four Points by Sheraton Xi'an Bell Tower",area:"Torre de la Campana · salida del metro en la puerta",precio:1800,
+   note:"La mejor ubicación pura de la lista: Barrio Musulmán a 5 min a pie, Torre del Tambor a 3, "+
+        "Puerta Sur a 20 o una parada de metro.<br>"+
+        "<i>⚠ Reseñas contradictorias: 9.5/10 en Trip.com con 1,024 reseñas, pero 3/5 y #71 de 1,232 en "+
+        "TripAdvisor. Lee las recientes antes de reservar.</i>"},
+  {name:"The Ritz-Carlton Xi'an",area:"Distrito tecnológico Gaoxin",precio:0,
+   note:"<b>Descartado por ubicación.</b> Está a <b>7.8 km de la Torre de la Campana</b>, en el distrito "+
+        "tecnológico Gaoxin: zona de oficinas, sin nada del itinerario cerca. Buen hotel en el lugar equivocado "+
+        "para este viaje. Lo mismo aplica al Shangri-La Xi'an, que está en la misma zona.<br>"+
+        "<i>Estaba listado como 'Centro', que era un error.</i>"}
+];
+/* Martes reacomodado: check-out del Sofitel, maletas al Canopy y Terracota. */
+const XA_DIA2_V2=[
+  {cid:"g-breakfast",dur:40,fixed:"06:00",
+   note:"Desayuno y check-out del Sofitel.<br><i>El buffet de un hotel de lujo suele abrir a las 6:30: "+
+        "pide desayuno en la habitación o caja para llevar la noche anterior. Con mayordomo 24 h no es problema.</i>"},
+  {cid:"xa-maletas",name:"Sofitel → Canopy: dejar las maletas",type:"transfer",dur:45,fixed:"06:40",
+   costos:[["Taxi con maletas (2)",90]],
+   note:"<b>Con maletas grandes, este es el desvío que evita cargarlas todo el día a Terracota.</b><br>"+
+        "El Canopy está al <b>sur</b> y Terracota al <b>noreste</b>, así que son ~9 km de retroceso: "+
+        "30 min de traslado + 15 de dejarlas en recepción.<br>"+
+        "<u>Cuesta 50 min de la mañana</u> — salen 20 antes y llegan 30 después — y por eso el Foso 1 "+
+        "pasa de 8:30 a 9:00. Sigue estando por delante de los tours, que aterrizan 9:30-10:00.<br>"+
+        "<i>⚠ Si el chofer contratado hace el desvío, déjalo por escrito al contratar: es un rodeo antes de "+
+        "arrancar a Lintong y no quieres discutirlo a las 6:40.<br>"+
+        "<b>Alternativa sin costo de tiempo:</b> que el Sofitel mande las maletas al Canopy por mensajería "+
+        "(¥100-200). Si lo hacen, borra esta actividad, regresa la salida a las 7:00 y el Foso 1 a las 8:30.</i>"},
+  {cid:"xa-terra-ir",name:"Canopy → Terracota en coche privado",dur:95,fixed:"07:25",
+   note:"<b>Desde Qujiang son ~70 min de carretera más 20-25 de caminata interna.</b><br>"+
+        "<i>Cierra precio por DÍA COMPLETO con la hora de regreso ESCRITA, y deja claro que el día empieza "+
+        "en el Sofitel, pasa por el Canopy y termina en el Canopy. No uses el bus 游5/306: el paradero cambió "+
+        "en 2019 y las guías en inglés siguen mandando a la plaza equivocada.</i>"},
+  {cid:"xa-terracota",fixed:"09:00"},
+  {cid:"xa-shuttle"},
+  {cid:"xa-lishan"},
+  {cid:"xa-lintong-comida"},
+  {cid:"xa-terra-vuelta",name:"Lintong → Canopy Qujiang",dur:95,fixed:"15:15",
+   note:"El coche los deja directo en el Canopy, donde ya están las maletas.<br>"+
+        "<i>De Lintong a Qujiang es parecido a ir al centro, probablemente algo menos: te ahorras el "+
+        "embudo del centro.</i>"},
+  {cid:"xa-checkin2",name:"Check-in en el Canopy y descanso",type:"rest",dur:85,
+   note:"Las maletas ya subieron. Descansen y cámbiense: la noche Tang termina pasadas las 21:30.<br>"+
+        "<i>⚠ Si el cuarto no está listo a las 16:50 se pierde el descanso — por eso conviene avisarles "+
+        "desde la reserva que llegan con maletas a las 7:10 y regresan a las 17:00.</i>"},
+  {cid:"xa-cena-tang",fixed:"18:30"},
+  {cid:"xa-datang",fixed:"20:00"},
+  {cid:"xa-fuentes",fixed:"21:00"},
+  {cid:"xa-datang-vuelta",name:"Regreso al hotel caminando",type:"transfer",dur:15,
+   note:"<b>15 min a pie por el mismo bulevar.</b> Esta es la ganancia grande de dormir en Qujiang: "+
+        "con el plan anterior había que alcanzar el último metro L3 antes de las 22:40."}
+];
+/* Miércoles: la mañana ya no es dentro de la muralla, es en Qujiang. */
+const BJ_DIA1_V2=[
+  {cid:"bjd0-desayuno",name:"Desayuno en el Canopy",dur:45,fixed:"07:30",
+   costos:[["Desayuno (2)",0]],
+   note:"<i>Se pierde el desayuno de calle de Sajinqiao (胡辣汤 y 甑糕), que solo se vende por la mañana "+
+        "y queda del otro lado de la ciudad. Es el precio de dormir en Qujiang.</i>"},
+  {cid:"bjd0-pagoda",name:"Gran Pagoda del Ganso Salvaje + templo Daci'en",type:"sight",dur:80,fixed:"08:30",
+   costos:[["Templo Da Ci'en + ascenso (2)",319]],
+   note:"<b>A 10-15 min a pie del hotel.</b> Esto es lo que gana el reacomodo: con el plan anterior "+
+        "<u>nunca entraban</u> — el corte de entrada es 16:30 y el martes regresaban de Terracota a las 16:20. "+
+        "Solo la veían iluminada desde fuera.<br>"+
+        "La construyó Xuanzang en 652 para guardar los sutras que trajo de la India. A las 8:30 está vacía.<br>"+
+        "<i>El ascenso a la torre son 7 pisos por escaleras de madera estrechas y en espiral, sin elevador. "+
+        "Si alguno trae rodillas o claustrofobia, con el templo basta.</i>"},
+  {cid:"bjd0-maletas",name:"Regreso al hotel por las maletas",dur:25},
+  {cid:"bjd0-estacion",name:"Canopy → estación Xi'an Norte",dur:75,fixed:"10:15",
+   costos:[["Taxi hotel → Xi'an Norte (2)",180]],
+   note:"<b>⚠ En taxi, no en metro.</b> Qujiang está al sur y la estación al norte: es el cruce más largo "+
+        "de la ciudad, 45-60 min, más 12-15 de caminata interna en 北客站. La Línea 2 con dos maletas grandes "+
+        "en hora pico es miserable.<br>"+
+        "<b>Los extranjeros pasan por el 人工通道</b> (canal manual con pasaporte), no por los torniquetes "+
+        "automáticos. El torniquete de andén cierra <b>3-5 min ANTES</b> de la salida."},
+  {cid:"bj-arrive"},
+  {cid:"bjd0-taxi"},
+  {cid:"bj-duck",fixed:"19:00"},
+  {cid:"bj-qianmen"}
+];
+function migrarXianDosHoteles(s){
+  if(s.xaDosHotelesV1)return;
+  const xa=s.bases&&s.bases.xian;
+  if(xa&&Array.isArray(xa.hotels)){
+    // se reemplaza la lista: los tres que había eran marcadores sin precio
+    xa.hotels=XA_HOTELES_2027.map(h=>({id:uid(),name:h.name,area:h.area,note:h.note,
+      precio:+h.precio||0,noches:+h.noches||0,chosen:!!h.chosen}));
+    xa.budget=xa.budget||{};
+    delete xa.budget.lodgingAuto;          // vuelve al cálculo automático
+  }
+  sembrarDia(xa,1,XA_DIA2_V2,"06:00");
+  // el regreso del martes ahora es a pie: fuera el costo del metro
+  const vuelta=xa&&(xa.catalog||[]).find(a=>a.cid==="xa-datang-vuelta");
+  if(vuelta)vuelta.costs=[];
+  sembrarDia(s.bases&&s.bases.beijing,0,BJ_DIA1_V2,"07:30");
+  s.xaDosHotelesV1=true;
+}
+
 /* ---- Dos días que quedaron chocando al cuadrar los vuelos ----
    1. Hong Kong día 1. El vuelo de Tokio aterriza a las 19:40, así que el día
       de llegada es solo eso: llegar y cenar. El programa que traía (Peak, Tim
@@ -2358,6 +2535,7 @@ function normalizeTripState(s){
   migrarDia3HK(s);
   migrarChongqing(s);
   migrarXian(s);
+  migrarXianDosHoteles(s);
   migrarLlegadas(s);
   migrarEsencialVuelo(s);
   migrarEscalaTokio(s);
@@ -2779,13 +2957,20 @@ function baseActCosts(st){let est=0,real=0;const nd=Math.max(1,st.nights),counts
 /* ---- Hospedaje: precio por noche × noches del plan ----
    Si el hotel elegido (★) tiene precio por noche, el hospedaje se calcula solo
    y se re-calcula al cambiar las noches. Se puede forzar a mano (lodgingAuto:false). */
-const hotelElegido=st=>(st.hotels||[]).find(h=>h.chosen&&(+h.precio>0))||null;
 const nochesDe=st=>Math.max(1,+st.nights||1);
+/* Se puede marcar más de un hotel con ★: sirve para las estancias partidas
+   (una noche en uno y otra en otro). Cada hotel puede llevar sus propias
+   "noches"; si no las trae, se le asignan todas las de la parada. */
+const hotelesElegidos=st=>(st.hotels||[]).filter(h=>h.chosen&&(+h.precio>0));
+const hotelElegido=st=>hotelesElegidos(st)[0]||null;
+const nochesHotel=(st,h)=>{const n=+h.noches;return n>0?n:nochesDe(st);};
+const nochesMarcadas=st=>hotelesElegidos(st).reduce((a,h)=>a+nochesHotel(st,h),0);
 function lodgingAutoActivo(st){
-  return (st.budget||{}).lodgingAuto!==false && !!hotelElegido(st);
+  return (st.budget||{}).lodgingAuto!==false && hotelesElegidos(st).length>0;
 }
 function lodgingEstDe(st){
-  if(lodgingAutoActivo(st))return (+hotelElegido(st).precio||0)*nochesDe(st);
+  if(lodgingAutoActivo(st))
+    return hotelesElegidos(st).reduce((a,h)=>a+(+h.precio||0)*nochesHotel(st,h),0);
   return +((st.budget||{}).lodgingEst)||0;
 }
 function baseTotals(st){const ac=baseActCosts(st),bg=st.budget||{};
@@ -3647,7 +3832,7 @@ function renderHotels(b,st){
   const n=nochesDe(st);
   const elegido=hotelElegido(st);
   const list=st.hotels.map(h=>{
-    const p=+h.precio||0, tot=p*n;
+    const p=+h.precio||0, hn=nochesHotel(st,h), tot=p*hn;
     return `<div class="pcard ${h.chosen?'chosen':''}">
       <button class="star" data-act="choosehotel" data-bid="${b.id}" data-item="${h.id}" title="Elegir este hotel">${h.chosen?'★':'☆'}</button>
       <div class="pbody">
@@ -3656,7 +3841,10 @@ function renderHotels(b,st){
         <div class="hprice">
           <label class="mini">💵 <input type="number" class="f hpinp hfield" data-list="hotels" data-fld="precio"
             data-bid="${b.id}" data-item="${h.id}" min="0" step="100" value="${p||''}" placeholder="0"> por noche</label>
-          <span class="htotal">${p?`× ${n} noche${n===1?'':'s'} = <b>${fmtMoney(tot)}</b>`:'<span class="hsin">sin precio</span>'}</span>
+          <label class="mini" title="Déjalo vacío para todas las noches de la parada">🌙 <input type="number"
+            class="f hpinp hfield" data-list="hotels" data-fld="noches" data-bid="${b.id}" data-item="${h.id}"
+            min="1" max="${n}" step="1" value="${+h.noches>0?+h.noches:''}" placeholder="${n}"> noches</label>
+          <span class="htotal">${p?`× ${hn} noche${hn===1?'':'s'} = <b>${fmtMoney(tot)}</b>`:'<span class="hsin">sin precio</span>'}</span>
           ${h.chosen&&p?'<span class="hbadge">cuenta en el presupuesto</span>':''}
         </div>
         ${rteHTML(`data-rtekind="hotel" data-bid="${b.id}" data-item="${h.id}"`,h.note,"✎ Notas: qué incluye, comparativa, cancelación, qué pedir al reservar…")}
@@ -4008,11 +4196,8 @@ function wireCardEvents(){
         editar("borrar hotel",()=>{st.hotels=st.hotels.filter(x=>x.id!==el.dataset.item);});
         toast("Borrado: "+nombre,{accion:{texto:"Deshacer",fn:undo}});return;}
       if(a==="choosehotel"){const h=find(st.hotels,el.dataset.item);
-        if(h)editar("elegir hotel",()=>{
-          const activar=!h.chosen;
-          st.hotels.forEach(x=>x.chosen=false);   // uno solo: es el que cuenta en el presupuesto
-          h.chosen=activar;
-        },{full:true});return;}
+        // se puede marcar más de uno: cada uno aporta sus noches al presupuesto
+        if(h)editar("elegir hotel",()=>{h.chosen=!h.chosen;},{full:true});return;}
       if(a==="addfood"){editar("añadir lugar",()=>{
         st.food.push({id:uid(),name:"",kind:"rest",note:"",chosen:false});});return;}
       if(a==="delfood"){
@@ -4275,9 +4460,10 @@ function armarImpresion(){
     h+=`<div class="pv-base">
       <h2><span class="pv-num">${i+1}</span> ${esc(b.name)} <small>${esc(b.region||"")}</small></h2>
       <div class="pv-dates">${esc(fmtDia(o.checkin))} → ${esc(fmtDia(o.checkout))} · ${st.nights} noche${st.nights===1?"":"s"}</div>`;
-    const hotel=(st.hotels||[]).find(x=>x.chosen),comida=(st.food||[]).filter(x=>x.chosen);
-    if(hotel)h+=`<div class="pv-pick">🛏 <b>${esc(hotel.name)}</b>${hotel.area?" · "+esc(hotel.area):""}${
-      +hotel.precio>0?" · "+esc(fmtMoney(hotel.precio))+"/noche":""}</div>`;
+    const hoteles=(st.hotels||[]).filter(x=>x.chosen),comida=(st.food||[]).filter(x=>x.chosen);
+    hoteles.forEach(ht=>{h+=`<div class="pv-pick">🛏 <b>${esc(ht.name)}</b>${ht.area?" · "+esc(ht.area):""}${
+      +ht.precio>0?" · "+esc(fmtMoney(ht.precio))+"/noche":""}${
+      +ht.noches>0&&+ht.noches<st.nights?" · "+(+ht.noches)+" noche"+(+ht.noches===1?"":"s"):""}</div>`;});
     if(comida.length)h+=`<div class="pv-pick">🍜 ${comida.map(f=>esc(f.name)).join(" · ")}</div>`;
     for(let d=0;d<Math.max(1,st.nights);d++)h+=pvDia(st,d,addDays(o.checkin,d));
     h+=`</div>`;
@@ -4423,11 +4609,17 @@ function renderBudget(){
       ${(()=>{
         const auto=lodgingAutoActivo(st),h=hotelElegido(st),n=nochesDe(st);
         const etiqueta=`Hospedaje (${st.nights} noche${st.nights===1?'':'s'})`;
-        if(auto)return `<div class="bline"><span class="blabel">${etiqueta}
-            <span class="autotag">🏨 ${esc(h.name)||'hotel'} · ${fmtMoney(+h.precio||0)}/noche × ${n}</span>
+        if(auto){
+          const marcados=hotelesElegidos(st),sum=nochesMarcadas(st);
+          const chips=marcados.map(x=>`<span class="autotag">🏨 ${esc(x.name)||'hotel'} · ${
+            fmtMoney(+x.precio||0)}/noche × ${nochesHotel(st,x)}</span>`).join("");
+          const aviso=sum!==n?`<span class="autotag warn">⚠ las noches marcadas suman ${sum} de ${n}</span>`:"";
+          return `<div class="bline"><span class="blabel">${etiqueta}
+            ${chips}${aviso}
             <button class="linkbtn" data-act="lodgingmanual" data-bid="${o.def.id}">editar a mano</button></span>
           <span class="ro">${fmtMoney(lodgingEstDe(st))}</span>
           <input type="number" class="f bamt bfield" data-bid="${o.def.id}" data-fld="lodgingReal" min="0" step="100" value="${bg.lodgingReal||''}" placeholder="0"></div>`;
+        }
         return `<div class="bline"><span class="blabel">${etiqueta}
             ${h?`<button class="linkbtn" data-act="lodgingauto" data-bid="${o.def.id}">usar ${esc(h.name)} (${fmtMoney(+h.precio||0)}/noche)</button>`:''}</span>
           <input type="number" class="f bamt bfield" data-bid="${o.def.id}" data-fld="lodgingEst" min="0" step="100" value="${bg.lodgingEst||''}" placeholder="0">

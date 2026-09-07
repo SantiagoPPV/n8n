@@ -850,7 +850,7 @@
   <div class="controls">
     <button class="btn" id="undoBtn" title="Deshacer" disabled>↶ Deshacer</button>
     <button class="btn" id="redoBtn" title="Rehacer" disabled>↷ Rehacer</button>
-    <button class="btn" id="printBtn">Imprimir / PDF</button>
+    <button class="btn" id="printBtn" title="Descargar el itinerario completo en PDF">⬇ Descargar PDF</button>
     <button class="btn" id="exportBtn" title="Descargar una copia de seguridad del viaje">⬇ Exportar</button>
     <button class="btn" id="importBtn" title="Reemplazar este viaje con un archivo exportado">⬆ Importar</button>
     <button class="btn" id="syncBtn">Sincronizar ahora</button>
@@ -891,7 +891,7 @@
 /* ===================== Constantes ===================== */
 /* Sello de versión: sirve para saber, desde cualquier computadora, si el
    navegador está mostrando la versión publicada o una vieja guardada en caché. */
-const APP_VERSION="v15 · 24 ago 2026 · Xi'an en dos hoteles, todo a pie";
+const APP_VERSION="v16 · 24 ago 2026 · descarga del itinerario en PDF";
 /* ===================== RUTA DEL VIAJE · EDITA AQUÍ =====================
    Este bloque es el único lugar donde vive la ruta. Para cambiarla:
      1. Mueve, quita o agrega renglones en ROUTE: el orden de la lista es el
@@ -4715,13 +4715,42 @@ function renderAll(){renderMasthead();renderSummary();renderMap();renderCards();
 
 (function(){const v=document.getElementById("appver");
   if(v)v.textContent="Versión "+APP_VERSION;})();
-document.getElementById("printBtn").addEventListener("click",()=>{
+/* ---- Descargar el itinerario en PDF ----
+   Quien mejor convierte esta página a PDF es el propio navegador: respeta los
+   saltos de página del CSS, deja el texto seleccionable (incluidos los nombres
+   en chino) y el archivo pesa medio mega. Las librerías de JavaScript que
+   "descargan" el PDF de un tirón lo hacen rasterizando la página: pierden el
+   texto, multiplican el peso por veinte y se quedan sin memoria en el celular
+   con un itinerario de 17 páginas.
+   Así que el botón arma la vista completa, le pone al documento el nombre que
+   queremos para el archivo —el navegador lo usa como nombre del PDF— y abre el
+   diálogo, donde hay que elegir "Guardar como PDF". */
+function nombreArchivoPDF(){
+  const m=(state&&state.meta)||{};
+  const base=(m.titulo||"Itinerario").replace(/[\\/:*?"<>|]+/g," ").replace(/\s+/g," ").trim();
+  return base+" · itinerario";
+}
+function descargarPDF(){
   if(!state){toast("Abre un viaje primero",{tipo:"err"});return;}
-  try{
-    document.getElementById("printview").innerHTML=armarImpresion();
-    window.print();
-  }catch(e){toast("No se pudo armar la impresión: "+(e.message||e),{tipo:"err"});}
-});
+  let vista;
+  try{vista=armarImpresion();}
+  catch(e){toast("No se pudo armar el itinerario: "+(e.message||e),{tipo:"err"});return;}
+  const cont=document.getElementById("printview");
+  if(!cont){toast("No se encontró el contenedor de impresión",{tipo:"err"});return;}
+  cont.innerHTML=vista;
+
+  const tituloPrevio=document.title;
+  document.title=nombreArchivoPDF();          // así se llamará el archivo
+  let restaurado=false;
+  const restaurar=()=>{if(restaurado)return;restaurado=true;document.title=tituloPrevio;};
+  window.addEventListener("afterprint",restaurar,{once:true});
+  setTimeout(restaurar,60000);                // por si el navegador nunca avisa
+
+  toast("En el diálogo: Destino → Guardar como PDF, y activa Gráficos de fondo",{ms:8000});
+  try{window.print();}
+  catch(e){restaurar();toast("Tu navegador bloqueó la impresión: "+(e.message||e),{tipo:"err"});}
+}
+document.getElementById("printBtn").addEventListener("click",descargarPDF);
 document.getElementById("syncBtn").addEventListener("click",()=>{setSync("live");poll();});
 document.getElementById("backToList").addEventListener("click",showList);
 (function(){

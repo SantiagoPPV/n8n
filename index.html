@@ -891,7 +891,7 @@
 /* ===================== Constantes ===================== */
 /* Sello de versión: sirve para saber, desde cualquier computadora, si el
    navegador está mostrando la versión publicada o una vieja guardada en caché. */
-const APP_VERSION="v13 · 24 ago 2026 · notas editables e itinerario en PDF";
+const APP_VERSION="v14 · 24 ago 2026 · conexión GDL → MTY en esenciales";
 /* ===================== RUTA DEL VIAJE · EDITA AQUÍ =====================
    Este bloque es el único lugar donde vive la ruta. Para cambiarla:
      1. Mueve, quita o agrega renglones en ROUTE: el orden de la lista es el
@@ -1539,7 +1539,13 @@ const DEFAULT_COSTS={
 };
 function costsFor(cid){return (DEFAULT_COSTS[cid]||[]).map(([label,est])=>({id:uid(),label,est,real:0}));}
 
+/* El vuelo internacional sale de Monterrey, así que la conexión desde
+   Guadalajara es un boleto aparte: va en la lista para no perderla de vista. */
+const ESSENTIAL_GDL_MTY={id:"ess-gdl-mty",t:"Vuelo Guadalajara → Monterrey (comprado aparte)",
+  s:"conecta con el "+VUELOS_INTL.ida.origen+" → Tokio de las "+VUELOS_INTL.ida.sale
+    +" del "+fmt(vueloIdaSale())+" · confirmar hora y si las maletas se documentan hasta Hong Kong"};
 const ESSENTIALS=[
+  ESSENTIAL_GDL_MTY,
   {id:"ess-jp",t:"Japón: Visit Japan Web + boleto de salida",s:"mexicanos sin visa (exención de turista)"},
   {id:"ess-visa",t:"Visa de turista China (L)",s:"tramitar 1–2 meses antes"},
   {id:"ess-pass",t:"Pasaporte 6+ meses de vigencia",s:"revisar ambos"},
@@ -2017,6 +2023,12 @@ const HK_LLEGADA_2027=[
         "pasada la medianoche.<br>"+
         "<i>Si les queda cuerda, el Temple Street Night Market está a un paso y aguanta hasta las 23:00.</i>"}
 ];
+function migrarEsencialVuelo(s){
+  if(s.esencialGdlMty)return;
+  if(Array.isArray(s.esenciales)&&!s.esenciales.some(e=>e.id===ESSENTIAL_GDL_MTY.id))
+    s.esenciales.unshift({...ESSENTIAL_GDL_MTY});
+  s.esencialGdlMty=true;
+}
 function migrarLlegadas(s){
   if(s.llegadasV1)return;
   sembrarDia(s.bases&&s.bases.hk,0,HK_LLEGADA_2027,"19:40");
@@ -2347,6 +2359,7 @@ function normalizeTripState(s){
   migrarChongqing(s);
   migrarXian(s);
   migrarLlegadas(s);
+  migrarEsencialVuelo(s);
   migrarEscalaTokio(s);
   migrarVuelosIntl(s);
   migrarRuta(s);          // deja el viaje con el orden y las noches de ROUTE
@@ -4293,8 +4306,8 @@ function armarImpresion(){
   if(tramos){gran+=tramos;h+=`<tr><td>Tramos y escalas</td><td>${esc(fmtMoney(tramos))}</td></tr>`;}
   h+=`<tr class="big"><td>Total</td><td>${esc(fmtMoney(gran))}</td></tr></table>`;
 
-  // pendientes de la lista de esenciales
-  const faltan=ESSENTIALS.filter(e=>!(state.checks||{})[e.id]);
+  // pendientes de la lista de esenciales (la tuya, con lo que hayas editado)
+  const faltan=esencialesDe().filter(e=>!(state.checks||{})[e.id]);
   if(faltan.length){
     h+=`<h2 style="margin-top:16px">Pendientes antes de salir</h2><table class="pv-tot">`;
     faltan.forEach(e=>{h+=`<tr><td>☐ ${esc(e.t)}</td><td style="text-align:left;color:#7a7263">${esc(e.s||"")}</td></tr>`;});
